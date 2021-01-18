@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
+# addition
+import django_heroku
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = BASE_DIR / 'templates' 
@@ -25,7 +28,7 @@ SECRET_KEY = '%su!^b#%49!1a%emc^ql#eh)+6e2gdc(@4d#=p18nvy4)@5eo&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['31.220.62.62']
+ALLOWED_HOSTS = ['.herokuapp.com','31.220.62.62']
 
 
 # Application definition
@@ -133,9 +136,12 @@ USE_L10N = True
 USE_TZ = True
 
 
+# addition
+django_heroku.settings(locals())
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 STATIC_URL = '/static/'
