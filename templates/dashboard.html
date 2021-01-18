@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+
+  <head>
+    <meta charset="UTF-8">
+    <title>AdminLTE 2 | Dashboard</title>
+
+    {% include 'snippets/dashboard_header.html' %}
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="manifest" href="manifest.json" />
+  
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+    
+      
+
+      {% include 'snippets/dashboard_nav.html' %}
+
+
+      {% include 'snippets/dashboard_sidebar.html' %}
+
+      <!-- Right side column. Contains the navbar and content of the page -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        
+        <section class="content-header">
+          <h1>
+            Dashboard
+            <small>Version 2.0</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+          </ol>
+        </section>
+       <!-- Main content -->
+      </div><!-- /.content-wrapper -->
+      
+      
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Version</b> 2.0
+        </div>
+        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+      </footer>
+
+    </div><!-- ./wrapper -->
+    
+
+    {% include 'snippets/dashboard_js.html' %}
+  
+{% comment %} <script src="{% static 'dotescrow/build/0.bundle.js'%}"></script> {% endcomment %}
+
+{% comment %} 
+<script>
+/** var address =null    
+if (address==null){
+window.addEventListener("load", (e) => {
+  setInterval(function checkConnection() {
+// var address =null    
+ if ($(".sc-fFSRdu")[0]){
+    // Do something if class exists
+    address = $('.sc-fFSRdu').text()
+    console.log('i am in in in ',address)
+    $.ajax({
+      type: 'GET',
+      url: '{% url "test" %}',
+      data: {
+        address: address,
+        //address:$('.sc-fFSRdu').text()
+        //csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+        action: 'get'
+      },
+      success: function (json) {
+        document.getElementById("tested").innerHTML = json['result']
+        console.log(address,'im address')
+      },
+      error: function (xhr, errmsg, err) {
+      }
+    });
+    
+} else if($(".cfylJP")[0]){
+    // Do something if class does not exist
+    console.log('i know you')
+} else{
+  console.log('i dont know you')
+}
+  }, 1000)
+})
+}
+
+ 
+$(document).on('click', '.test', function (e) {
+    e.preventDefault();
+
+     $.ajax({
+      type: 'GET',
+      url: '{% url "test" %}',
+      data: {
+        test: address,
+        address:$('.sc-fFSRdu').text()
+        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+        action: 'get'
+      },
+      success: function (json) {
+        document.getElementById("tested").innerHTML = json['result']
+        console.log(address,'im address')
+      },
+      error: function (xhr, errmsg, err) {
+      }
+    });
+  }) 
+  **/
+    
+</script> {% endcomment %}
+
+<script> 
+
+{% comment %} window.addEventListener("load", (e) => {
+  setInterval(function checkConnection() {
+      
+ if ($(".sc-fFSRdu")[0]){
+    // Do something if class exists
+    var address = $('.sc-fFSRdu').text()
+    console.log('i am in in in ',address)
+} else if($(".cfylJP")[0]){
+    // Do something if class does not exist
+    console.log('i know you')
+} else{
+  console.log('i dont know you')
+}
+  }, 1000)
+})
+  {% endcomment %}
+
+    </script>
+  
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap3 %}
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>AdminLTE 2 | Dashboard</title>
+
+    {% include 'snippets/dashboard_header.html' %}
+  <style>
+  .page-content{
+      margin-left:20%;
+  }
+  </style>
+  </head>
+  <body class="skin-blue">
+      {% include 'snippets/dashboard_nav.html' %}
+
+
+      <aside class="main-sidebar">
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+    <!-- Sidebar user panel -->
+    <div class="user-panel">
+      <div class="pull-left image">
+        <img src="{{request.user.userprofile.avatar.url}}" class="img-circle" alt="User Image" />
+      </div>
+      <div class="pull-left info">
+        <p>{{request.user.username}}</p>
+      </div>
+    </div>
+    <ul class="sidebar-menu">
+      <li class="header">MAIN NAVIGATION</li>
+      <li >
+        <a href="{% url 'dashboard'%}">
+          <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+        </a>
+      </li>
+       <li>
+        <a href="{% url 'profiles:profile'%}">
+          <i class="fa fa-pencil"></i> <span>Profile</span>
+          {% comment %} <small class="label pull-right bg-red">3</small> {% endcomment %}
+        </a>
+      </li>
+      <li class="active treeview">
+        <a href="{% url 'kyc:kyc_form'%}">
+          <i class="fa fa-calendar"></i> <span>KYC Form</span>
+          {% comment %} <small class="label pull-right bg-red">3</small> {% endcomment %}
+        </a>
+      </li>
+       {% comment %} <li>
+        <a href="{% url 'wallets:wallet_form'%}">
+          <i class="fa fa-calendar"></i> <span>Wallet</span>
+          <small class="label pull-right bg-red">3</small>
+        </a>
+      </li> {% endcomment %}
+    </ul>
+  </section>
+  <!-- /.sidebar -->
+</aside>
+   <h1 style="fontsize:3em;margin-top:200px;text-align: center;">Thanks for submiting your from, We will contact you soon!</h1>
+    {% include 'snippets/dashboard_js.html' %}
+  </body>
+</html>
