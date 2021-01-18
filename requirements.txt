@@ -47,10 +47,8 @@ pylint-celery==0.3
 pylint-django==2.0.15
 pylint-flask==0.6
 pylint-plugin-utils==0.6
-pypiwin32==223
 pyrsistent==0.17.3
 pytz==2020.5
-pywin32==300
 PyYAML==5.3.1
 requests==2.25.1
 requirements-detector==0.7
