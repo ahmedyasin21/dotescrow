@@ -144,7 +144,7 @@ USE_TZ = True
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-STATIC_ROOT = "/User/AHMED/nitin_pro/dotescrow/static"
+STATIC_ROOT = "/static/'"
 
 STATIC_URL = '/static/'
 
