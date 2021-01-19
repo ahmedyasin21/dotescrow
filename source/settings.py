@@ -28,6 +28,8 @@ SECRET_KEY = '%su!^b#%49!1a%emc^ql#eh)+6e2gdc(@4d#=p18nvy4)@5eo&'
 DEBUG = True
 
 ALLOWED_HOSTS = ['.herokuapp.com','31.220.62.62', ]
+# ALLOWED_HOSTS = ['127.0.0.1', ]
+
 
 
 # Application definition
@@ -142,7 +144,7 @@ USE_TZ = True
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = "/User/AHMED/nitin_pro/dotescrow/static"
 
 STATIC_URL = '/static/'
 
