@@ -1,0 +1,1 @@
+web: gunicorn dotescrow.wsgi --log-file -
