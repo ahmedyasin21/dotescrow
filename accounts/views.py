@@ -21,6 +21,7 @@ from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from django.core.mail import send_mail
 from django.contrib import messages
+from django.template import loader
 
 # Create your views here.
 
@@ -42,13 +43,13 @@ class SignUp(CreateView):
 
             current_site = get_current_site(request)
             subject = 'Activate Your Dotescrow Account'
-            message = render_to_string('accounts/account_activation_email.html', {
+            html_message = loader.render_to_string('accounts/account_activation_email.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
-            user.email_user(subject, message)
+            user.email_user(subject,'message' ,fail_silently=True,html_message=html_message)
             messages.success(request, 'Please verify you email to activate you account.')
             return redirect('accounts:signup')
 

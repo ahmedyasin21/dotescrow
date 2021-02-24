@@ -26,7 +26,7 @@ SECRET_KEY = '%su!^b#%49!1a%emc^ql#eh)+6e2gdc(@4d#=p18nvy4)@5eo&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','31.220.62.62']
+ALLOWED_HOSTS = ['0.0.0.0','31.220.62.62','127.0.0.1']
 
 
 # Application definition
@@ -45,15 +45,24 @@ INSTALLED_APPS = [
     'kyc',
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-MAILER_EMAIL_BACKEND = EMAIL_BACKEND  
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'coolahmed21@gmail.com' 
-EMAIL_HOST_PASSWORD = 'Allah_tera_shukar_hai'  
-EMAIL_PORT = 587 
-EMAIL_USE_TLS = True  
+# MAILER_EMAIL_BACKEND = EMAIL_BACKEND  
+# EMAIL_HOST = 'smtp.office365.com'
+# EMAIL_HOST_USER = 'no-reply@dotescrow.net' 
+# EMAIL_HOST_PASSWORD = '!Dot3scrow'  
+# EMAIL_PORT = 587 
+# EMAIL_USE_TLS = True  
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.dotescrow.net'
+EMAIL_HOST_USER = 'no-reply@dotescrow.net'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = '!Dot3scrow'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+# EMAIL_USE_TLS = False
 
 
 

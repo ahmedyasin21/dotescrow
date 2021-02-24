@@ -114,15 +114,14 @@ class KycModelForm(forms.ModelForm):
         print(wallet_address)
         if 42 == len(wallet_address):
             if Web3.isAddress(wallet_address):
-                url = f'http://93.115.29.78:5000/api/token/mainnet/address/{wallet_address}/{contract}'
+                url = f'http://13.127.251.36:8000/api/fit/getBalance/{wallet_address}'
                 # print('response')
-                result = requests.get(url, headers={'Authorization':'2RxsiIvEtuaPxxvP6eTs98fr55K4xJye3IqEJWhk'})
+                result = requests.get(url)
                 # print(result.json())
                 data = result.json()
-                balance = data['balance']
-                # print('got a user wallet',balance)
-                user = self.request.user
-                print(user,'im user')
+                balance = data['payload']['token']
+                parse_balance = float(balance)
+                print('got a user wallet',parse_balance)
                 # fitoken api for usd
                 print(time,'time')
                 fit_url = f'https://api.coingecko.com/api/v3/coins/financial-investment-token/history?date={time}&localization=false'
@@ -131,10 +130,10 @@ class KycModelForm(forms.ModelForm):
                 fit_balance = fit_data["market_data"]["current_price"]["usd"]
                 print('fit_balance',fit_balance)
 
-                print('now',balance*fit_balance)
+                print('now',parse_balance*fit_balance)
                 # print('hellos',fit_result.json())
-                user.save()
-                current_balance = 500
+
+                current_balance = parse_balance*fit_balance
                 # silver process
                 if card == 'silver':
                     if current_balance >= 500:
@@ -146,7 +145,7 @@ class KycModelForm(forms.ModelForm):
 
                 # gold process
                 elif card == 'gold':
-                    if user.current_balance >= 1000:
+                    if current_balance >= 1000:
                         pass
                     else:
                         golden_error = f'You should have at least 1000 tokens for gold card but you have{current_balance}in your wallet'
@@ -155,11 +154,11 @@ class KycModelForm(forms.ModelForm):
                 
                 # Prepaid process
                 elif card == 'Prepaid':
-                    if user.current_balance >= 1500:
+                    if current_balance >= 1500:
                         pass
                     else:
                         Prepaid_error = f'You should have at least 1500 tokens for Prepaid but you have{current_balance}in your wallet'
-                        self.add_error('card',diamond_error)
+                        self.add_error('card',Prepaid_error)
                         raise forms.ValidationError("You should have at least 1500 tokens for diamond")
             else:
                 # raise forms.ValidationError("Please enter a valid wallet address")
