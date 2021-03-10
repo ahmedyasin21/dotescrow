@@ -8,6 +8,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.forms import AuthenticationForm
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
+from phonenumber_field.widgets import PhoneNumberPrefixWidget
 from web3 import Web3,HTTPProvider
 import web3
 from datetime import datetime
@@ -35,10 +36,11 @@ class KycModelForm(forms.ModelForm):
     
     class Meta:
         model = KycModel
-        fields = ("first_name","last_name","age","gender","nationality","country","city","state","zip_code","user_address","pass_port_copy","selfie_proof","wallet_address","card")
+        fields = ("first_name","last_name","age","gender","nationality","country","phone_number","wallet_balance","city","state","zip_code","street_address","pass_port_copy","selfie_proof","wallet_address","card")
         Gender = (
             ('male','Male'),
             ('female','Female'),
+            ('others','Others'),
             )
             
         Cards = (
@@ -61,6 +63,7 @@ class KycModelForm(forms.ModelForm):
             'gender' : forms.Select(choices=Gender,attrs={'class': 'form-control'}),
             'nationality' : forms.TextInput(attrs={'class':'form-control'}),
             'country': CountrySelectWidget(),
+            'phone_number': PhoneNumberPrefixWidget(),
             'city':forms.TextInput(attrs={'class':'form-control'}),
             'zip_code':forms.TextInput(attrs={'class':'form-control'}),
             "user_address":forms.TextInput(attrs={'class':'form-control'}),
@@ -91,6 +94,7 @@ class KycModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super(KycModelForm, self).__init__(*args, **kwargs)
+        self.fields['card'].widget.attrs['disabled'] = True
         # self.fields['wallet_address'].disabled = True
         # instance = getattr(self, 'instance', None)
         # if instance and instance.pk:
@@ -100,6 +104,7 @@ class KycModelForm(forms.ModelForm):
         cleaned_data = super().clean()
 
         age = cleaned_data.get('age')
+        wallet_balance = cleaned_data.get('wallet_balance')
         print(age)
         if age < 18:
             # raise forms.ValidationError("You're age should be 18 plus")

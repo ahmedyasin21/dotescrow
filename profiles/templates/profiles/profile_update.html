@@ -111,6 +111,12 @@
 				</div>
 				<h5 class="user-name">{{user.username}}</h5>
 				<h6 class="user-email">{{user.email}}</h6>
+				<p><strong>
+				{% if request.user.userprofile.card and kyc.kyc_approve == "Approved"%}
+						{{request.user.userprofile.card|capfirst}}
+				{% endif %} 
+				</strong></p>
+				
 			</div>
           
 			<div class="about">
@@ -132,39 +138,32 @@
 						<h6 class="mb-2 text-primary">Personal Details</h6>
 					</div>
 					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-					
-					<div class="form-group">
+						<div class="form-group">
 							{% comment %} <label>Image</label> {% endcomment %}
 							{% bootstrap_field form.avatar %}
 						</div>
+					</div>
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<div class="form-group">
+							{% comment %} <label for="disabledInput">USERNAME</label> {% endcomment %}
+							{% bootstrap_field form.username %}
+						</div>
+					</div> 
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<div class="form-group">
 				
+						{% if request.user.userprofile.card and kyc.kyc_approve == "Approved"%}
+						{% bootstrap_field form.card %}
+						{% endif %} 
+							{% comment %} <label for="card">Website URL</label>
+							<input type="url" class="form-control" id="website" placeholder="Website url"> {% endcomment %}
+						</div>
 					</div>
 					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 						<div class="form-group">
 						{% bootstrap_field form.email %}
 							{% comment %} <label for="eMail">Email</label>
 							<input type="email" class="form-control" id="eMail" placeholder="Enter email ID"> {% endcomment %}
-						</div>
-					</div>
-					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-						<div class="form-group">
-						{% bootstrap_field form.bio %}
-							{% comment %} <label for="fullName">Full Name</label>
-							<input type="text" class="form-control" id="fullName" placeholder="Enter full name"> {% endcomment %}
-						</div> 
-					</div>
-				
-					
-					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-						<div class="form-group">
-						{% bootstrap_field form.website %}
-							{% comment %} <label for="website">Website URL</label>
-							<input type="url" class="form-control" id="website" placeholder="Website url"> {% endcomment %}
-						</div>
-					</div>
-					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-						<div class="form-group">
-							{% bootstrap_field form.age %}
 						</div>
 					</div>
 					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -179,18 +178,39 @@
 							{% bootstrap_field form.last_name %}
 						</div>
 					</div>
+
+					
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<div class="form-group">
+						{% bootstrap_field form.bio %}
+							{% comment %} <label for="fullName">Full Name</label>
+							<input type="text" class="form-control" id="fullName" placeholder="Enter full name"> {% endcomment %}
+						</div> 
+					</div>
+				
+					
+					{% comment %} <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<div class="form-group">
+						{% bootstrap_field form.website %}
+							<label for="website">Website URL</label>
+							<input type="url" class="form-control" id="website" placeholder="Website url">
+						</div>
+					</div> {% endcomment %}
+	
+					
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<div class="form-group">
+							{% bootstrap_field form.age %}
+						</div>
+					</div>
+					
 					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 						<div class="form-group">
 							{% comment %} <label for="id_gender">Gender</label> {% endcomment %}
 							{% bootstrap_field form.gender %}
 						</div>
 					</div> 
-					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-						<div class="form-group">
-							{% comment %} <label for="disabledInput">USERNAME</label> {% endcomment %}
-							{% bootstrap_field form.username %}
-						</div>
-					</div> 
+					
 
 				</div>
 				<div class="row gutters">

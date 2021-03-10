@@ -28,6 +28,12 @@ class UserProfile(models.Model):
     Gender = (
     ('male','Male'),
     ('female','Female'),
+    ('others','Others'),
+    )
+    Cards = (
+    ('silver','Silver'),
+    ('gold','Gold'),
+    ('Prepaid','Prepaid'),
     )
     age = models.PositiveIntegerField(("age"),null=True,blank=True)
     first_name = models.CharField(("first_name"), max_length=50,null=True,blank=True)
@@ -36,13 +42,12 @@ class UserProfile(models.Model):
     gender = models.CharField(("gender"), max_length=50,choices=Gender,null=True)
     email = models.EmailField(("email"),null=True, max_length=254)
     bio = models.CharField(("About you"), max_length=250,null=True,blank=True)
-    # phone = PhoneNumberField(blank=True)
     website = models.URLField(("Website"), max_length=250,null=True,blank=True)
-    
+    card = models.CharField(("card"), max_length=50,choices=Cards,null=True,blank=True)
     
     # address info 
     country = CountryField()
-    street_address = models.CharField(("street address"), max_length=50,null=True,blank=True)
+    street_address = models.CharField(("street address"), max_length=70,null=True,blank=True)
     city = models.CharField(("city"), max_length=50,null=True)
     state = models.CharField(("state"), max_length=50,null=True)
     zip_code = models.CharField(("zip code"), max_length=50,null=True)
@@ -60,6 +65,7 @@ class UserProfile(models.Model):
 
     def save(self,*args, **kwargs):
         self.username  = self.user.username
+        self.email  = self.user.email
 
         super(UserProfile,self).save(*args, **kwargs) #it will take data and save it
     

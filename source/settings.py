@@ -39,11 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    'bootstrap3',
     'profiles',
-    'django_countries',
     'kyc',
+
+    #third party
+    'bootstrap3',
+    'django_countries',
+    'phonenumber_field',
 ]
+
+AUTHENTICATION_BACKENDS = ['accounts.backends.EmailBackend']
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 

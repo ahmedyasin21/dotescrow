@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 class KycModel(models.Model):
@@ -9,6 +10,7 @@ class KycModel(models.Model):
     Gender = (
     ('male','Male'),
     ('female','Female'),
+    ('others','Others'),
     )
 
     Cards = (
@@ -35,12 +37,14 @@ class KycModel(models.Model):
     gender = models.CharField(("gender"), max_length=50,choices=Gender)
     nationality = models.CharField(("nationality"), max_length=50,null=True)
     country = CountryField()
+    phone_number = PhoneNumberField()
+    wallet_balance = models.CharField(("wallet balance when user applied for kyc form"),blank=True, max_length=150)
     state = models.CharField(("state"), max_length=50,null=True)
     city = models.CharField(("city"), max_length=50,null=True)
     zip_code = models.CharField(("zip code"), max_length=50,null=True)
-    user_address = models.CharField(("user address"), max_length=50,null=True)
+    street_address = models.CharField(("Street address"), max_length=70,null=True)
     pass_port_copy = models.ImageField(("passport image"), upload_to='passports', height_field=None, width_field=None, max_length=None,null=True)
-    selfie_proof =models.ImageField(("selfies"), upload_to='selfies_proof', height_field=None, width_field=None, max_length=None,null=True)
+    selfie_proof =models.ImageField(("profile photo"), upload_to='selfies_proof', height_field=None, width_field=None, max_length=None,null=True)
     # wallet_type = models.CharField(("wallets"), max_length=50,choices=Wallets,null=True)
     wallet_address = models.CharField(("wallet address"), max_length=50,null=True)
     card = models.CharField(("card"), max_length=50,choices=Cards,null=True)

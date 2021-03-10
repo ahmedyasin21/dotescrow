@@ -10,4 +10,7 @@ app_name = 'kyc'
 urlpatterns = [
     path('kyc_form/', views.SubmitKycTemplateView.as_view(),name = 'submited'),
     path('kyc',views.KycFormCreateView.as_view(),name='kyc_form'),
+    path('wallet_balance',views.wallet_balance,name='wallet_balance'),
+
+    
 ]

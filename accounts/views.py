@@ -22,8 +22,23 @@ from django.utils.http import urlsafe_base64_decode
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.template import loader
-
+from . import forms
+from django.contrib.auth import login as auth_login
+from django.contrib.auth.models import User
+from django.http import HttpResponse,JsonResponse
 # Create your views here.
+
+
+def email_taken(request):
+    
+    email = request.GET.get('search')
+    print('imi im ',email)
+    msg = "Valid"
+    if User.objects.filter(email__iexact=email).exists():
+        msg1 = "Email already exist"  
+        msg = None
+        return JsonResponse({'error1':msg1,'error':msg })
+    return JsonResponse({'error':msg })
 
 class SignUp(CreateView):
     form_class = UserCreateForm
@@ -56,9 +71,15 @@ class SignUp(CreateView):
         return render(request, self.template_name, {'form': form})
 
 
-
 class CoustomLoginView(LoginView):
+
     authentication_form = forms.CustomLoginForm
+    
+    # def get_form_kwargs(self, *args, **kwargs):
+    #     form_kwargs = super().get_form_kwargs(*args, **kwargs)
+    #     form_kwargs['request'] = self.request
+    #     return form_kwargs
+    
 
  
 class ActivateAccount(View):

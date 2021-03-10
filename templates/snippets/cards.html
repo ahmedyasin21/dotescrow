@@ -1,0 +1,138 @@
+
+{% load static %}
+
+
+{% comment %} before kyc form submit {% endcomment %}
+{% if not kyc %}
+        <div class="content">
+            <div class="grid">
+                <figure class="effect-lily">
+                    <img class="img-responsive" src="{% static "Cards/card-images/silver.jpg"%}" alt="Card2"/>
+                    <figcaption>
+                        <div>
+                            <h2>Silver <span>Card</span></h2>
+                            <p>Purchase <br>Now!</p>
+                        </div>
+                        <a href="{% url "kyc:kyc_form"%}">View more</a>
+                    </figcaption>			
+                </figure>
+                <figure class="effect-lily">
+                    <img class="img-responsive" src="{% static "Cards/card-images/gold.jpg"%}" alt="Card3"/>
+                    <figcaption>
+                        <div>
+                            <h2>Gold <span>Card</span></h2>
+                            <p>Purchase <br>Now!</p>
+                        </div>
+                        <a href="{% url "kyc:kyc_form"%}">View more</a>
+                    </figcaption>			
+                </figure>
+                <figure class="effect-lily">
+                    <img class="img-responsive" src="{% static "Cards/card-images/blue.jpg"%}" alt="Card1"/>
+                    <figcaption>
+                        <div>
+                            <h2 style="color: white;">Prepaid <span>Card</span></h2>
+                            <p style="color: white;">Purchase <br>Now!</p>
+                        </div>
+                        <a href="{% url "kyc:kyc_form"%}" style="color: white;">View more</a>
+                    </figcaption>			
+                </figure>
+            </div>
+        </div>
+
+
+{% comment %} After kyc form submited before approval {% endcomment %}
+    {% elif kyc.kyc_approve == ""  and kyc.card == "silver" %}
+        <div class="content">
+            <div class="grid">
+                <figure class="effect-lily">
+                    <img class="img-responsive" src="{% static "Cards/card-images/silver.jpg"%}" alt="Card2"/>
+                    <figcaption>
+                        <div>
+                            <h2>Silver <span>Card</span></h2>
+                            <p>Pending <br>You applied for silver card</p>
+                        </div>
+                        <a href="{% url "kyc:submited"%}">View more</a>
+                    </figcaption>			
+                </figure>
+            </div>
+        </div>
+    {% elif kyc.kyc_approve == "" and kyc.card == "gold" %}
+        <div class="content">
+            <div class="grid">
+                <figure class="effect-lily">
+                    <img class="img-responsive" src="{% static "Cards/card-images/gold.jpg"%}" alt="Card3"/>
+                    <figcaption>
+                        <div>
+                            <h2>Gold <span>Card</span></h2>
+                             <p>Pending <br>You applied for Gold card</p>
+                        </div>
+                        <a href="{% url "kyc:submited"%}">View more</a>
+                    </figcaption>				
+                </figure>
+            </div>
+        </div>
+    {% elif kyc.kyc_approve == "" and kyc.card == "Prepaid" %}
+        <div class="content">
+            <div class="grid">
+                <figure class="effect-lily">
+                    <img class="img-responsive" src="{% static "Cards/card-images/blue.jpg"%}" alt="Card1"/>
+                    <figcaption>
+                        <div>
+                            <h2 style="color: white;">Prepaid <span>Card</span></h2>
+                            <p style="color: white;"> Pending <br>You applied for Prepaid card</p>
+                        </div>
+                        <a href="{% url "kyc:submited"%}" style="color: white;">View more</a>
+                    </figcaption>			
+                </figure>
+            </div>
+        </div>
+
+{% comment %} after kyc approval {% endcomment %}
+
+    {% elif kyc.kyc_approve == "Approved" and kyc.card == "silver" %}
+        <div class="content">
+            <div class="grid">
+                <figure class="effect-lily">
+                    <img class="img-responsive" src="{% static "Cards/card-images/silver.jpg"%}" alt="Card2"/>
+                    <figcaption>
+                        <div>
+                            <h2>Silver <span>Card</span></h2>
+                            <p>Owner <br>You have Silver card</p>
+                        </div>
+                        {% comment %} <a href="{% url "kyc:submited"%}">View more</a> {% endcomment %}
+                    </figcaption>			
+                </figure>
+            </div>
+        </div>
+    {% elif kyc.kyc_approve == "Approved" and kyc.card == "gold" %}
+        <div class="content">
+            <div class="grid">
+                <figure class="effect-lily">
+                    <img class="img-responsive" src="{% static "Cards/card-images/gold.jpg"%}" alt="Card3"/>
+                    <figcaption>
+                        <div>
+                            <h2>Gold <span>Card</span></h2>
+                             <p>Owner <br>You have Gold card</p>
+                        </div>
+                        {% comment %} <a href="{% url "kyc:submited"%}">View more</a> {% endcomment %}
+                    </figcaption>				
+                </figure>
+            </div>
+        </div>
+    {% elif kyc.kyc_approve == "Approved" and kyc.card == "Prepaid" %}
+        <div class="content">
+            <div class="grid">
+                <figure class="effect-lily">
+                    <img class="img-responsive" src="{% static "Cards/card-images/blue.jpg"%}" alt="Card1"/>
+                    <figcaption>
+                        <div>
+                            <h2 style="color: white;">Prepaid <span>Card</span></h2>
+                            <p style="color: white;"> Owner <br>You have Prepaid card</p>
+                        </div>
+                        {% comment %} <a href="{% url "kyc:submited"%}" style="color: white;">View more</a> {% endcomment %}
+                    </figcaption>			
+                </figure>
+            </div>
+        </div>
+
+{% endif %}

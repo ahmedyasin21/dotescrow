@@ -16,14 +16,21 @@ class UserProfileForm(forms.ModelForm):
     
     class Meta:
         model = UserProfile
-        fields = ("avatar","username","first_name","last_name","age","gender","country","email","bio","website","street_address","city","state","zip_code")
+        fields = ("avatar","username","first_name","last_name","age","gender","country","card","email","bio","street_address","city","state","zip_code")
         # exclude = (,)
         # fields = ("avatar",)
         Gender = (
-            ('one','Male'),
-            ('two','Female'),
+            ('male','Male'),
+            ('female','Female'),
+            ('others','Others'),
             )
-            
+        
+        Cards = (
+        ('silver','Silver'),
+        ('gold','Gold'),
+        ('Prepaid','Prepaid'),
+        )
+                
         widgets ={
             # 'avatar': forms.ImageField(attrs={'class':'form-control'}, required=True),
             'first_name' : forms.TextInput(attrs={'class':'form-control'}),
@@ -39,7 +46,9 @@ class UserProfileForm(forms.ModelForm):
             'state' : forms.TextInput(attrs={'class': 'form-control','id':'sTate'}),
             'zip_code' : forms.TextInput(attrs={'class': 'form-control','id':'zIp'}),
             'bio' : forms.TextInput(attrs={'class': 'form-control','id':'bio'}),
-            'website' : forms.TextInput(attrs={'class': 'form-control','id':'website'}),
+            'card' : forms.Select(choices=Cards,attrs={'class': 'form-control'}),
+
+            # 'website' : forms.TextInput(attrs={'class': 'form-control','id':'website'}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -48,10 +57,12 @@ class UserProfileForm(forms.ModelForm):
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             self.fields['username'].widget.attrs['readonly'] = True
+            self.fields['email'].widget.attrs['readonly'] = True
+            self.fields['card'].widget.attrs['disabled'] = True
         
     def clean_age(self):
         age = self.cleaned_data["age"]
-        print(age,'hm here')
+        # print(age,'hm here')
         if age is not None:
             if age < 18:
                 print(age,'hm here')

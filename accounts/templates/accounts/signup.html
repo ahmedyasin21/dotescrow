@@ -23,6 +23,12 @@
     <![endif]-->
   </head>
   <body class="register-page">
+
+  <style>
+    #msg_email_validation{
+      color: red;
+    }
+  </style>
    {% for message in messages %}
     {% if message %}
             <div class="alert alert-success container" style="textalign:center">
@@ -50,7 +56,9 @@
           <div class="form-group has-feedback">
           {% bootstrap_field form.email %}
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            <span id="msg_email_validation"></span>
           </div>
+          
           <div class="form-group has-feedback">
             {% bootstrap_field form.password1 %}
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
@@ -87,6 +95,40 @@
           increaseArea: '20%' // optional
         });
       });
+
+      
+    
+    
+
     </script>
+  <script>
+
+    var delayTimer;
+    $('#id_email').keyup(function() {
+      clearTimeout(delayTimer);
+      $('#search_results').text('Loading...');
+      delayTimer = setTimeout(function() {
+          var text = $("#id_email").val();
+          console.log(text,'search text');
+          $.ajax({
+            type: 'GET',
+            url:'{% url "accounts:email_taken" %}',
+            data:{
+                "search":text
+            },
+            dataType:'json',
+            success:function(json) {
+            //document.getElementById("msg_email_validation").val() = json['error']
+            
+            msg = json['error']
+            //console.log(msg)
+            msg1 = json['error1']
+            $('#msg_email_validation').text(msg1);
+            console.log(msg1)
+            }
+          });
+      },1000);
+    });
+  </script> 
   </body>
 </html>

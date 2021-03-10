@@ -3,6 +3,15 @@
 {% block content %}
 {% include 'snippets/dashboard_sidebar.html' %}
 
+    {% block script %}
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+            <!-- Optional theme -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+            <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <link href="{% static "Cards/style/style.css"%}" rel="stylesheet">
+    {% endblock script %}
+
           <h1>
             Dashboard
             <small>Version 2.0</small>
@@ -11,90 +20,6 @@
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active">Dashboard</li>
           </ol>
-  
-{% comment %} <script src="{% static 'dotescrow/build/0.bundle.js'%}"></script> {% endcomment %}
-
-{% comment %} 
-<script>
-/** var address =null    
-if (address==null){
-window.addEventListener("load", (e) => {
-  setInterval(function checkConnection() {
-// var address =null    
- if ($(".sc-fFSRdu")[0]){
-    // Do something if class exists
-    address = $('.sc-fFSRdu').text()
-    console.log('i am in in in ',address)
-    $.ajax({
-      type: 'GET',
-      url: '{% url "test" %}',
-      data: {
-        address: address,
-        //address:$('.sc-fFSRdu').text()
-        //csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-        action: 'get'
-      },
-      success: function (json) {
-        document.getElementById("tested").innerHTML = json['result']
-        console.log(address,'im address')
-      },
-      error: function (xhr, errmsg, err) {
-      }
-    });
-    
-} else if($(".cfylJP")[0]){
-    // Do something if class does not exist
-    console.log('i know you')
-} else{
-  console.log('i dont know you')
-}
-  }, 1000)
-})
-}
-
- 
-$(document).on('click', '.test', function (e) {
-    e.preventDefault();
-
-     $.ajax({
-      type: 'GET',
-      url: '{% url "test" %}',
-      data: {
-        test: address,
-        address:$('.sc-fFSRdu').text()
-        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-        action: 'get'
-      },
-      success: function (json) {
-        document.getElementById("tested").innerHTML = json['result']
-        console.log(address,'im address')
-      },
-      error: function (xhr, errmsg, err) {
-      }
-    });
-  }) 
-  **/
-    
-</script> {% endcomment %}
-
-<script> 
-
-{% comment %} window.addEventListener("load", (e) => {
-  setInterval(function checkConnection() {
-      
- if ($(".sc-fFSRdu")[0]){
-    // Do something if class exists
-    var address = $('.sc-fFSRdu').text()
-    console.log('i am in in in ',address)
-} else if($(".cfylJP")[0]){
-    // Do something if class does not exist
-    console.log('i know you')
-} else{
-  console.log('i dont know you')
-}
-  }, 1000)
-})
-  {% endcomment %}
-
-    </script>
+          
+          {% include "snippets/cards.html" with kyc=kyc%}
  {% endblock content %}

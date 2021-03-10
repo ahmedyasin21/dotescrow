@@ -83,6 +83,14 @@
 	padding-right:60px;
     padding-left:60px;
 }
+
+#current_balance{
+  color:green;
+}
+#msg_select_card{
+  font-size:20px;
+  font-weight:normal;
+}
  </style>
 
 
@@ -123,7 +131,7 @@
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
-                {% bootstrap_field form.user_address %}
+                {% bootstrap_field form.street_address %}
               </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -139,6 +147,11 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 {% bootstrap_field form.country %}
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+                {% bootstrap_field form.phone_number %}
               </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -168,7 +181,7 @@
             </div>
           </div>
           <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="col-xl-12 col-lg-12  col-md-12 col-sm-12 col-12">
               <h6 class="mt-3 mb-2 text-primary">Wallet Connect</h6>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -193,6 +206,8 @@
                     <li>You should have at least 1000 tokens for golden</li>
                     <li>You should have at least 1500 tokens for Prepaid</li>
                 </ul>
+                <span id="current_balance"></span><br>
+                <span id="msg_select_card"></span>
                 {% bootstrap_field form.card %}
               </div>
             </div>
@@ -200,7 +215,7 @@
           <div class="row gutters">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <div class="text-right">
-                <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
+                <button type="submit" id="submit" name="submit" class="btn btn-primary">Submit</button>
               </div>
             </div>
           </div>
@@ -251,6 +266,7 @@
 
 
 <script src="{% static 'dotescrow/build/bundle.js'%}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>   
 
 window.addEventListener("load", (e) => {
@@ -272,6 +288,64 @@ if ($("#walletconnect")[0]){
       document.getElementById('walletaddressinput').value = mew_wallet_connect_address;
     }
     
+    address = document.getElementById('walletaddressinput').value
+    console.log('address aa gya',address)
+    $.ajax({
+      type: 'GET',
+      url: '{% url "kyc:wallet_balance" %}',
+      data: {
+        address: address,
+        //address:$('.sc-fFSRdu').text()
+        //csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+        action: 'get'
+      },
+      success: function (json) {
+        //document.getElementById("tested").innerHTML = json['result']
+        //console.log(address,'im address')
+        msg = json['error']
+        if(msg!==null){
+          $('#current_balance').text(msg);
+        }
+        int_msg = json['error1']
+        if (int_msg!=null && int_msg >= 500 ){
+          document.getElementById("id_card").disabled= false
+        } else{
+          document.getElementById("id_card").disabled= true
+        }
+        console.log(int_msg,"hhehehehehehehehehehheheheheheheheehh")
+        console.log(msg,"i'm")
+        var op = document.getElementById("id_card").getElementsByTagName("option");
+        for (var i = 0; i < op.length; i++) {
+          // lowercase comparison for case-insensitivity
+          if (int_msg < 500) {
+            op[i].disabled = true;
+            $('#msg_select_card').text("You can't buy any card.");
+          }
+          if (int_msg < 1000 && int_msg >= 500 ) {
+            op[1].disabled = false;
+            op[2].disabled = true;
+            op[3].disabled = true;
+            $('#msg_select_card').text("You can buy Silver card");
+          }
+          if (int_msg < 1500 && int_msg >= 1000 ) {
+            op[1].disabled = false;
+            op[2].disabled = false;
+            op[3].disabled = true;
+            $('#msg_select_card').text("You can buy Silver or Gold card.");
+          }
+          if (int_msg >= 1500){
+            op[1].disabled = false;
+            op[2].disabled = false;
+            op[3].disabled = false;
+            $('#msg_select_card').text("You can buy any card.");
+          }
+        }
+
+        
+      },
+      error: function (xhr, errmsg, err) {
+      }
+    });
     
 } else if($("#walletconnect")[0]){
     // Do something if class does not exist
