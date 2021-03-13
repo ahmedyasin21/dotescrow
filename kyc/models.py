@@ -43,7 +43,7 @@ class KycModel(models.Model):
     city = models.CharField(("city"), max_length=50,null=True)
     zip_code = models.CharField(("zip code"), max_length=50,null=True)
     street_address = models.CharField(("Street address"), max_length=70,null=True)
-    pass_port_copy = models.ImageField(("passport image"), upload_to='passports', height_field=None, width_field=None, max_length=None,null=True)
+    pass_port_copy = models.ImageField(("Account Verification"), upload_to='passports', height_field=None, width_field=None, max_length=None,null=True)
     selfie_proof =models.ImageField(("profile photo"), upload_to='selfies_proof', height_field=None, width_field=None, max_length=None,null=True)
     # wallet_type = models.CharField(("wallets"), max_length=50,choices=Wallets,null=True)
     wallet_address = models.CharField(("wallet address"), max_length=50,null=True)

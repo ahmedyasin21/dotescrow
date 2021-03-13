@@ -26,7 +26,7 @@ SECRET_KEY = '%su!^b#%49!1a%emc^ql#eh)+6e2gdc(@4d#=p18nvy4)@5eo&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0','31.220.62.62','127.0.0.1']
+ALLOWED_HOSTS = ['52.66.25.190','127.0.0.1']
 
 
 # Application definition
@@ -106,10 +106,22 @@ WSGI_APPLICATION = 'source.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dotescrow',
+        'USER': 'dotescrow_main',
+        'PASSWORD': 'ppoopp00',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
