@@ -30,6 +30,11 @@ class KycModel(models.Model):
     ('Cancel','cancel'),
     )
 
+    Varification = (
+    ('1','ID Card'),
+    ('2','Passport'),
+    )
+
     owner = models.ForeignKey(User,related_name='kyc_owner', on_delete=models.CASCADE,blank=True)
     first_name = models.CharField(("first_name"), max_length=50,null=True)
     last_name = models.CharField(("last_name"), max_length=50,null=True)
@@ -43,12 +48,13 @@ class KycModel(models.Model):
     city = models.CharField(("city"), max_length=50,null=True)
     zip_code = models.CharField(("zip code"), max_length=50,null=True)
     street_address = models.CharField(("Street address"), max_length=70,null=True)
+    verification_field = models.CharField(("Varification"), max_length=50,choices=Varification,null=True)
     pass_port_copy = models.ImageField(("Account Verification"), upload_to='passports', height_field=None, width_field=None, max_length=None,null=True)
     selfie_proof =models.ImageField(("profile photo"), upload_to='selfies_proof', height_field=None, width_field=None, max_length=None,null=True)
     # wallet_type = models.CharField(("wallets"), max_length=50,choices=Wallets,null=True)
     wallet_address = models.CharField(("wallet address"), max_length=50,null=True)
     card = models.CharField(("card"), max_length=50,choices=Cards,null=True)
-    kyc_approve = models.CharField(("kyc approve"), max_length=50,choices=Approved,null=True,)
+    kyc_approve = models.CharField(("kyc approve"), max_length=50,choices=Approved,null=True,blank=True)
    
 
 

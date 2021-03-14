@@ -41,7 +41,7 @@
 
 
 {% comment %} After kyc form submited before approval {% endcomment %}
-    {% elif kyc.kyc_approve == ""  and kyc.card == "silver" %}
+    {% elif not kyc.kyc_approve  and kyc.card == "silver" %}
         <div class="content">
             <div class="grid">
                 <figure class="effect-lily">
@@ -56,7 +56,7 @@
                 </figure>
             </div>
         </div>
-    {% elif kyc.kyc_approve == "" and kyc.card == "gold" %}
+    {% elif not kyc.kyc_approve and kyc.card == "gold" %}
         <div class="content">
             <div class="grid">
                 <figure class="effect-lily">
@@ -71,7 +71,7 @@
                 </figure>
             </div>
         </div>
-    {% elif kyc.kyc_approve == "" and kyc.card == "Prepaid" %}
+    {% elif not kyc.kyc_approve and kyc.card == "Prepaid" %}
         <div class="content">
             <div class="grid">
                 <figure class="effect-lily">

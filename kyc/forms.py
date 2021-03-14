@@ -36,7 +36,7 @@ class KycModelForm(forms.ModelForm):
     
     class Meta:
         model = KycModel
-        fields = ("first_name","last_name","age","gender","nationality","country","phone_number","wallet_balance","city","state","zip_code","street_address","pass_port_copy","selfie_proof","wallet_address","card")
+        fields = ("first_name","last_name","age","gender","nationality","country","phone_number","verification_field","wallet_balance","city","state","zip_code","street_address","pass_port_copy","selfie_proof","wallet_address","card")
         Gender = (
             ('male','Male'),
             ('female','Female'),
@@ -55,6 +55,11 @@ class KycModelForm(forms.ModelForm):
             ('fitoken','FIToken'),
             )
 
+
+        Varification = (
+            ('1','ID Card'),
+            ('2','Passport'),
+            )
             
         widgets ={
             'first_name' : forms.TextInput(attrs={'class':'form-control'}),
@@ -68,6 +73,7 @@ class KycModelForm(forms.ModelForm):
             'zip_code':forms.TextInput(attrs={'class':'form-control'}),
             "user_address":forms.TextInput(attrs={'class':'form-control'}),
             'card' : forms.Select(choices=Cards,attrs={'class': 'form-control'}),
+            'verification_field' : forms.Select(choices=Varification,attrs={'class': 'form-control'}),
             # 'wallet_type' : forms.Select(choices=Wallets,attrs={'class': 'form-control'}),
             "wallet_address":forms.TextInput(attrs={'class':'form-control','id':'walletaddressinput'}),
         }
@@ -119,52 +125,58 @@ class KycModelForm(forms.ModelForm):
         print(wallet_address)
         if 42 == len(wallet_address):
             if Web3.isAddress(wallet_address):
-                url = f'http://13.127.251.36:8000/api/fit/getBalance/{wallet_address}'
-                # print('response')
-                result = requests.get(url)
-                # print(result.json())
-                data = result.json()
-                balance = data['payload']['token']
-                parse_balance = float(balance)
-                print('got a user wallet',parse_balance)
-                # fitoken api for usd
-                print(time,'time')
-                fit_url = f'https://api.coingecko.com/api/v3/coins/financial-investment-token/history?date={time}&localization=false'
-                fit_result = requests.get(fit_url, headers=headers)
-                fit_data = fit_result.json()
-                fit_balance = fit_data["market_data"]["current_price"]["usd"]
-                print('fit_balance',fit_balance)
+                if not KycModel.objects.filter(wallet_address=wallet_address).exists():
+                    url = f'http://13.127.251.36:8000/api/fit/getBalance/{wallet_address}'
+                    # print('response')
+                    result = requests.get(url)
+                    # print(result.json())
+                    data = result.json()
+                    balance = data['payload']['token']
+                    parse_balance = float(balance)
+                    print('got a user wallet',parse_balance)
+                    # fitoken api for usd
+                    print(time,'time')
+                    fit_url = f'https://api.coingecko.com/api/v3/coins/financial-investment-token/history?date={time}&localization=false'
+                    fit_result = requests.get(fit_url, headers=headers)
+                    fit_data = fit_result.json()
+                    fit_balance = fit_data["market_data"]["current_price"]["usd"]
+                    print('fit_balance',fit_balance)
 
-                print('now',parse_balance*fit_balance)
-                # print('hellos',fit_result.json())
+                    print('now',parse_balance*fit_balance)
+                    # print('hellos',fit_result.json())
 
-                current_balance = parse_balance*fit_balance
-                # silver process
-                if card == 'silver':
-                    if current_balance >= 500:
-                        pass
-                    else:
-                        silver_error = f'You should have at least 500 tokens for silver card but you have{current_balance}in your wallet'
-                        self.add_error('card',silver_error)
-                        raise forms.ValidationError("You should have at least 500 tokens for silver")
+                    current_balance = parse_balance*fit_balance
+                    # silver process
+                    if card == 'silver':
+                        if current_balance >= 500:
+                            pass
+                        else:
+                            silver_error = f'You should have at least 500 tokens for silver card but you have{current_balance}in your wallet'
+                            self.add_error('card',silver_error)
+                            raise forms.ValidationError("You should have at least 500 tokens for silver")
 
-                # gold process
-                elif card == 'gold':
-                    if current_balance >= 1000:
-                        pass
-                    else:
-                        golden_error = f'You should have at least 1000 tokens for gold card but you have{current_balance}in your wallet'
-                        self.add_error('card',golden_error)
-                        raise forms.ValidationError("You should have at least 1000 tokens for golden")
-                
-                # Prepaid process
-                elif card == 'Prepaid':
-                    if current_balance >= 1500:
-                        pass
-                    else:
-                        Prepaid_error = f'You should have at least 1500 tokens for Prepaid but you have{current_balance}in your wallet'
-                        self.add_error('card',Prepaid_error)
-                        raise forms.ValidationError("You should have at least 1500 tokens for diamond")
+                    # gold process
+                    elif card == 'gold':
+                        if current_balance >= 1000:
+                            pass
+                        else:
+                            golden_error = f'You should have at least 1000 tokens for gold card but you have{current_balance}in your wallet'
+                            self.add_error('card',golden_error)
+                            raise forms.ValidationError("You should have at least 1000 tokens for golden")
+                    
+                    # Prepaid process
+                    elif card == 'Prepaid':
+                        if current_balance >= 1500:
+                            pass
+                        else:
+                            Prepaid_error = f'You should have at least 1500 tokens for Prepaid but you have{current_balance}in your wallet'
+                            self.add_error('card',Prepaid_error)
+                            raise forms.ValidationError("You should have at least 1500 tokens for diamond")
+                else:
+                    invalid = "Wallet address already registered"
+                    self.add_error('wallet_address',invalid)
+                    raise forms.ValidationError("Wallet address already registered")
+
             else:
                 # raise forms.ValidationError("Please enter a valid wallet address")
                 invalid = "Please enter a valid wallet address"
