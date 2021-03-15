@@ -91,6 +91,12 @@
   font-size:20px;
   font-weight:normal;
 }
+#pass_port_copy_error{
+  color:red;
+}
+#selfie_proof_error{
+  color:red;
+}
  </style>
 
 
@@ -98,7 +104,7 @@
 <div class="container row">
   <div class="col-xl-9 col-lg-11 col-md-12 col-sm-12 col-12 detail_body">
     <div class="card h-100">
-      <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+      <form method="POST" enctype="multipart/form-data" name="kyc_form" id="kyc_form">{% csrf_token %}
         <div class="card-body">
           <div class="row gutters">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -175,6 +181,7 @@
                 <label class="hand-cursor">
                <span  title="story cover" class="fa fa-camera" ></span>
                 <input type="file" onchange="readURL(this);" name="pass_port_copy" accept="image/*" title="image proof" required="" id="id_pass_port_copy" nv-file-select uploader="$ctrl.uploader"  style="display:none" />
+                <div id="pass_port_copy_error"></div>
                 <img id="previewHolder" width="200px" height="auto"/>
                 </label>
 
@@ -189,7 +196,7 @@
                 <p> Your Selfie</p>
                <span  title="story cover" class="fa fa-camera" ></span>
                 <input type="file" onchange="readURLsec(this);" name="selfie_proof" accept="image/*" title="selfie proof" required="true" id="id_selfie_proof" nv-file-select uploader="$ctrl.uploader"  style="display:none" />
-                <div class="help-block"></div>
+                <div id="selfie_proof_error"></div>
                 <img id="previewHolder_sec" width="200px" height="auto"/>
                 </label>
               </div>
@@ -230,7 +237,7 @@
           <div class="row gutters">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <div class="text-right">
-                <button type="submit" id="submit" name="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" id="submit" name="submit" class="btn btn-primary"  onclick = "GFG_Fun()">Submit</button>
               </div>
             </div>
           </div>
@@ -375,9 +382,28 @@ if ($("#walletconnect")[0]){
 
     
 </script>
+<script>
+var down = document.getElementById('pass_port_copy_error');
+var down_two = document.getElementById('selfie_proof_error');
+var id_pass_port_copy = document.getElementById("id_pass_port_copy"); 
+var id_selfie_proof = document.getElementById("id_selfie_proof"); 
+function GFG_Fun() { 
+            if(id_pass_port_copy.files.length == 0){ 
+                down.innerHTML = "No file selected"; 
+            } else {
+               down.innerHTML = ""; 
+            }
+            if( id_selfie_proof.files.length== 0 ){
+                down_two.innerHTML = "No file selected"; 
+            } else {
+               down_two.innerHTML = ""; 
+            }
+        } 
 
+</script>
 
 <script>
+
 function readURL(input) {
   console.log("mujhy mil jao")
   if (input.files && input.files[0]) {
@@ -395,6 +421,8 @@ function readURL(input) {
 $("#id_pass_port_copy").change(function() {
   readURL(this);
 });
+
+
 </script>
 
 <script>
