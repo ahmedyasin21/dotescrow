@@ -97,6 +97,9 @@
 #selfie_proof_error{
   color:red;
 }
+#address_proof_img_error{
+   color:red;
+}
  </style>
 
 
@@ -140,6 +143,21 @@
                 {% bootstrap_field form.street_address %}
               </div>
             </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<div class="form-group">
+                          {% bootstrap_field form.address_proof %}
+						  {% comment %} {% bootstrap_field form.address_proof_img %} {% endcomment %}
+						  <label class="hand-cursor">
+							<span  title="story cover" class="fa fa-camera" ></span>
+							<input type="file" onchange="readURLsec(this);" name="address_proof_img" accept="image/*" title="image proof" required="" id="id_address_proof_img" nv-file-select uploader="$ctrl.uploader"  style="display:none" />
+							<div id="address_proof_img_error"></div>
+							<img id="previewHolder_sec" width="200px" height="auto"/>
+							</label>
+						{% comment %} {% bootstrap_field form.zip_code %} {% endcomment %}
+							{% comment %} <label for="zIp">Zip Code</label>
+							<input type="text" class="form-control" id="zIp" placeholder="Zip Code"> {% endcomment %}
+						</div>
+					</div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                           {% bootstrap_field form.nationality %}
@@ -385,8 +403,10 @@ if ($("#walletconnect")[0]){
 <script>
 var down = document.getElementById('pass_port_copy_error');
 var down_two = document.getElementById('selfie_proof_error');
+var down_three = document.getElementById('address_proof_img_error');
 var id_pass_port_copy = document.getElementById("id_pass_port_copy"); 
 var id_selfie_proof = document.getElementById("id_selfie_proof"); 
+var address_proof_img = document.getElementById("id_address_proof_img"); 
 function GFG_Fun() { 
             if(id_pass_port_copy.files.length == 0){ 
                 down.innerHTML = "No file selected"; 
@@ -397,7 +417,13 @@ function GFG_Fun() {
                 down_two.innerHTML = "No file selected"; 
             } else {
                down_two.innerHTML = ""; 
+            }if( address_proof_img.files.length== 0 ){
+                down_three.innerHTML = "No file selected"; 
+            } else {
+               down_three.innerHTML = ""; 
             }
+
+
         } 
 
 </script>
