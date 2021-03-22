@@ -28,7 +28,22 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['my.dotescrow.net','52.66.25.190','127.0.0.1']
 
-
+import logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+        },
+    },
+}
 # Application definition
 
 INSTALLED_APPS = [
