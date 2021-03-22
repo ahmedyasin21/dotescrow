@@ -36,7 +36,7 @@ class KycModelForm(forms.ModelForm):
     
     class Meta:
         model = KycModel
-        fields = ("first_name","last_name","age","gender","nationality","country","phone_number","verification_field","wallet_balance","city","state","zip_code","street_address","pass_port_copy","selfie_proof","wallet_address","card")
+        fields = ("first_name","last_name","age","gender","nationality","country","phone_number","address_proof","address_proof_img","verification_field","wallet_balance","city","state","zip_code","street_address","pass_port_copy","selfie_proof","wallet_address","card")
         Gender = (
             ('male','Male'),
             ('female','Female'),
@@ -101,7 +101,7 @@ class KycModelForm(forms.ModelForm):
         self.request = kwargs.pop('request', None)
         super(KycModelForm, self).__init__(*args, **kwargs)
         self.fields['card'].widget.attrs['disabled'] = True
-        # self.fields['wallet_address'].disabled = True
+        self.fields['wallet_address'].disabled = True
         # instance = getattr(self, 'instance', None)
         # if instance and instance.pk:
         #     self.fields['wallet_address'].disabled = True
@@ -145,33 +145,34 @@ class KycModelForm(forms.ModelForm):
                     print('now',parse_balance*fit_balance)
                     # print('hellos',fit_result.json())
 
-                    current_balance = parse_balance*fit_balance
+                    # current_balance = parse_balance*fit_balance
+                    current_balance = balance
                     # silver process
                     if card == 'silver':
-                        if current_balance >= 500:
+                        if current_balance >= 5000:
                             pass
                         else:
-                            silver_error = f'You should have at least 500 tokens for silver card but you have{current_balance}in your wallet'
+                            silver_error = f'You should have at least 5000 tokens for silver card but you have{current_balance}in your wallet'
                             self.add_error('card',silver_error)
-                            raise forms.ValidationError("You should have at least 500 tokens for silver")
+                            raise forms.ValidationError("You should have at least 5000 tokens for silver")
 
                     # gold process
                     elif card == 'gold':
-                        if current_balance >= 1000:
+                        if current_balance >= 10000:
                             pass
                         else:
-                            golden_error = f'You should have at least 1000 tokens for gold card but you have{current_balance}in your wallet'
+                            golden_error = f'You should have at least 10000 tokens for gold card but you have{current_balance}in your wallet'
                             self.add_error('card',golden_error)
-                            raise forms.ValidationError("You should have at least 1000 tokens for golden")
+                            raise forms.ValidationError("You should have at least 10000 tokens for golden")
                     
                     # Prepaid process
                     elif card == 'Prepaid':
-                        if current_balance >= 1500:
+                        if current_balance >= 15000:
                             pass
                         else:
-                            Prepaid_error = f'You should have at least 1500 tokens for Prepaid but you have{current_balance}in your wallet'
+                            Prepaid_error = f'You should have at least 15000 tokens for Prepaid but you have{current_balance}in your wallet'
                             self.add_error('card',Prepaid_error)
-                            raise forms.ValidationError("You should have at least 1500 tokens for diamond")
+                            raise forms.ValidationError("You should have at least 15000 tokens for diamond")
                 else:
                     invalid = "Wallet address already registered"
                     self.add_error('wallet_address',invalid)

@@ -30,15 +30,16 @@ def wallet_balance(request):
     parse_balance = float(balance)
     print('got a user wallet',parse_balance)
                 # fitoken api for usd
-    print(time,'time')
-    fit_url = f'https://api.coingecko.com/api/v3/coins/financial-investment-token/history?date={time}&localization=false'
-    fit_result = requests.get(fit_url, headers=headers)
-    fit_data = fit_result.json()
-    fit_balance = fit_data["market_data"]["current_price"]["usd"]
-    print('fit_balance',fit_balance)
-    print('now',parse_balance*fit_balance)
-                # print('hellos',fit_result.json())
-    current_balance = parse_balance*fit_balance
+    # print(time,'time')
+    # fit_url = f'https://api.coingecko.com/api/v3/coins/financial-investment-token/history?date={time}&localization=false'
+    # fit_result = requests.get(fit_url, headers=headers)
+    # fit_data = fit_result.json()
+    # fit_balance = fit_data["market_data"]["current_price"]["usd"]
+    # print('fit_balance',fit_balance)
+    # print('now',parse_balance*fit_balance)
+    #             # print('hellos',fit_result.json())
+    # current_balance = parse_balance*fit_balance
+    current_balance = parse_balance
 
     return JsonResponse({'error':f'Your current balance {current_balance}   (FITokens)','error1':current_balance})
 

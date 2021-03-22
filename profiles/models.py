@@ -36,8 +36,8 @@ class UserProfile(models.Model):
     ('Prepaid','Prepaid'),
     )
     age = models.PositiveIntegerField(("age"),null=True,blank=True)
-    first_name = models.CharField(("first_name"), max_length=50,null=True,blank=True)
-    last_name = models.CharField(("last_name"), max_length=50,null=True,blank=True)
+    first_name = models.CharField(("first name"), max_length=50,null=True,blank=True)
+    last_name = models.CharField(("last name"), max_length=50,null=True,blank=True)
     username = models.CharField(("username"), max_length=50,null=True)
     gender = models.CharField(("gender"), max_length=50,choices=Gender,null=True)
     email = models.EmailField(("email"),null=True, max_length=254)

@@ -25,6 +25,12 @@ class KycModel(models.Model):
     ('fitoken','FIToken'),
     )
 
+    Address_proof= (
+    ('1','Licence'),
+    ('2','Government id'),
+    ('3','Passport'),
+    )
+
     Approved = (
     ('Approved','Approved'),
     ('Cancel','cancel'),
@@ -36,8 +42,8 @@ class KycModel(models.Model):
     )
 
     owner = models.ForeignKey(User,related_name='kyc_owner', on_delete=models.CASCADE,blank=True)
-    first_name = models.CharField(("first_name"), max_length=50,null=True)
-    last_name = models.CharField(("last_name"), max_length=50,null=True)
+    first_name = models.CharField(("first name"), max_length=50,null=True)
+    last_name = models.CharField(("last name"), max_length=50,null=True)
     age = models.IntegerField(("age"),null=True)
     gender = models.CharField(("gender"), max_length=50,choices=Gender)
     nationality = models.CharField(("nationality"), max_length=50,null=True)
@@ -50,7 +56,10 @@ class KycModel(models.Model):
     street_address = models.CharField(("Street address"), max_length=70,null=True)
     verification_field = models.CharField(("Varification"), max_length=50,choices=Varification,null=True)
     pass_port_copy = models.ImageField(("Account Verification"), upload_to='passports', height_field=None, width_field=None, max_length=None,null=True)
-    selfie_proof =models.ImageField(("profile photo"), upload_to='selfies_proof', height_field=None, width_field=None, max_length=None,null=True)
+    selfie_proof =models.ImageField(("ID Photo"), upload_to='selfies_proof', height_field=None, width_field=None, max_length=None,null=True)
+    address_proof = models.CharField(("address proof"), max_length=50,choices=Address_proof)
+    address_proof_img = models.ImageField(("Address Verification"), upload_to='address_proof_img', height_field=None, width_field=None, max_length=None)
+    
     # wallet_type = models.CharField(("wallets"), max_length=50,choices=Wallets,null=True)
     wallet_address = models.CharField(("wallet address"), max_length=50,null=True)
     card = models.CharField(("card"), max_length=50,choices=Cards,null=True)
