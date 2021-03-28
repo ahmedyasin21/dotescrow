@@ -24,7 +24,7 @@ TEMPLATE_DIR = BASE_DIR / 'templates'
 SECRET_KEY = '%su!^b#%49!1a%emc^ql#eh)+6e2gdc(@4d#=p18nvy4)@5eo&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['my.dotescrow.net','52.66.25.190','127.0.0.1']
 
