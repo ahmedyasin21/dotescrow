@@ -149,9 +149,9 @@
 						  {% comment %} {% bootstrap_field form.address_proof_img %} {% endcomment %}
 						  <label class="hand-cursor">
 							<span  title="story cover" class="fa fa-camera" ></span>
-							<input type="file" onchange="readURLsec(this);" name="address_proof_img" accept="image/*" title="image proof" required="" id="id_address_proof_img" nv-file-select uploader="$ctrl.uploader"  style="display:none" />
+							<input type="file"  onchange="readURLthird(this);" name="address_proof_img" accept="image/*" title="image proof" required="" id="id_address_proof_img" nv-file-select uploader="$ctrl.uploader"  style="display:none" />
 							<div id="address_proof_img_error"></div>
-							<img id="previewHolder_sec" width="200px" height="auto"/>
+							<img id="previewHolder_third" width="200px" height="auto"/>
 							</label>
 						{% comment %} {% bootstrap_field form.zip_code %} {% endcomment %}
 							{% comment %} <label for="zIp">Zip Code</label>
@@ -211,7 +211,7 @@
               <div class="form-group">
                   {% comment %} {% bootstrap_field form.selfie_proof %}  {% endcomment %}
                 <label class="hand-cursor">
-                <p> Your Selfie</p>
+                <p> ID Photo</p>
                <span  title="story cover" class="fa fa-camera" ></span>
                 <input type="file" onchange="readURLsec(this);" name="selfie_proof" accept="image/*" title="selfie proof" required="true" id="id_selfie_proof" nv-file-select uploader="$ctrl.uploader"  style="display:none" />
                 <div id="selfie_proof_error"></div>
@@ -242,9 +242,9 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 <ul>      
-                    <li>You should have at least 500 tokens for silver</li>
-                    <li>You should have at least 1000 tokens for golden</li>
-                    <li>You should have at least 1500 tokens for Prepaid</li>
+                    <li>You should have at least 5000 tokens for silver</li>
+                    <li>You should have at least 10000 tokens for golden</li>
+                    <li>You should have at least 15000 tokens for Prepaid</li>
                 </ul>
                 <span id="current_balance"></span><br>
                 <span id="msg_select_card"></span>
@@ -347,7 +347,7 @@ if ($("#walletconnect")[0]){
           $('#current_balance').text(msg);
         }
         int_msg = json['error1']
-        if (int_msg!=null && int_msg >= 500 ){
+        if (int_msg!=null && int_msg >= 5000 ){
           document.getElementById("id_card").disabled= false
         } else{
           document.getElementById("id_card").disabled= true
@@ -467,6 +467,27 @@ function readURLsec(input) {
 }
 
 $("#id_selfie_proof").change(function() {
+  readURL(this);
+});
+
+</script>
+
+<script>
+function readURLthird(input) {
+  console.log("mujhy mil jao")
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      $('#previewHolder_third').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  } else {
+    alert('select a file to see preview');
+    $('#previewHolder_third').attr('src', '');
+  }
+}
+
+$("#id_address_proof_img").change(function() {
   readURL(this);
 });
 

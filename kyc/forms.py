@@ -101,7 +101,7 @@ class KycModelForm(forms.ModelForm):
         self.request = kwargs.pop('request', None)
         super(KycModelForm, self).__init__(*args, **kwargs)
         self.fields['card'].widget.attrs['disabled'] = True
-        self.fields['wallet_address'].disabled = True
+        # self.fields['wallet_address'].disabled = True
         # instance = getattr(self, 'instance', None)
         # if instance and instance.pk:
         #     self.fields['wallet_address'].disabled = True
