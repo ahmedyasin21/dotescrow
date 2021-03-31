@@ -143,21 +143,8 @@
                 {% bootstrap_field form.street_address %}
               </div>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-						<div class="form-group">
-                          {% bootstrap_field form.address_proof %}
-						  {% comment %} {% bootstrap_field form.address_proof_img %} {% endcomment %}
-						  <label class="hand-cursor">
-							<span  title="story cover" class="fa fa-camera" ></span>
-							<input type="file"  onchange="readURLthird(this);" name="address_proof_img" accept="image/*" title="image proof" required="" id="id_address_proof_img" nv-file-select uploader="$ctrl.uploader"  style="display:none" />
-							<div id="address_proof_img_error"></div>
-							<img id="previewHolder_third" width="200px" height="auto"/>
-							</label>
-						{% comment %} {% bootstrap_field form.zip_code %} {% endcomment %}
-							{% comment %} <label for="zIp">Zip Code</label>
-							<input type="text" class="form-control" id="zIp" placeholder="Zip Code"> {% endcomment %}
-						</div>
-					</div>
+           
+		
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                           {% bootstrap_field form.nationality %}
@@ -193,7 +180,22 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <h6 class="mt-3 mb-2 text-primary">Image Proofs</h6>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+                            {% bootstrap_field form.address_proof %}
+                {% comment %} {% bootstrap_field form.address_proof_img %} {% endcomment %}
+                <label class="hand-cursor">
+                <span  title="story cover" class="fa fa-camera" ></span>
+                <input type="file"  onchange="readURLthird(this);" name="address_proof_img" accept="image/*" title="image proof" required="" id="id_address_proof_img" nv-file-select uploader="$ctrl.uploader"  style="display:none" />
+                <div id="address_proof_img_error"></div>
+                <img id="previewHolder_third" width="200px" height="auto"/>
+						  	</label>
+						  {% comment %} {% bootstrap_field form.zip_code %} {% endcomment %}
+							{% comment %} <label for="zIp">Zip Code</label>
+							<input type="text" class="form-control" id="zIp" placeholder="Zip Code"> {% endcomment %}
+						</div>
+            </div>
+            {% comment %} <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 {% bootstrap_field form.verification_field %}
                 <label class="hand-cursor">
@@ -202,11 +204,8 @@
                 <div id="pass_port_copy_error"></div>
                 <img id="previewHolder" width="200px" height="auto"/>
                 </label>
-
-                {% comment %} <input type='file' onchange="readURL(this);" />
-    <img id="blah" src="#" alt="your image" /> {% endcomment %}
               </div>
-            </div>
+            </div> {% endcomment %}
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                   {% comment %} {% bootstrap_field form.selfie_proof %}  {% endcomment %}
@@ -428,7 +427,7 @@ function GFG_Fun() {
 
 </script>
 
-<script>
+{% comment %} <script>
 
 function readURL(input) {
   console.log("mujhy mil jao")
@@ -449,7 +448,7 @@ $("#id_pass_port_copy").change(function() {
 });
 
 
-</script>
+</script> {% endcomment %}
 
 <script>
 function readURLsec(input) {

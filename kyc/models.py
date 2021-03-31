@@ -54,7 +54,7 @@ class KycModel(models.Model):
     city = models.CharField(("city"), max_length=50,null=True)
     zip_code = models.CharField(("zip code"), max_length=50,null=True)
     street_address = models.CharField(("Street address"), max_length=70,null=True)
-    verification_field = models.CharField(("Varification"), max_length=50,choices=Varification,null=True)
+    # verification_field = models.CharField(("Varification"), max_length=50,choices=Varification,null=True)
     pass_port_copy = models.ImageField(("Account Verification"), upload_to='passports', height_field=None, width_field=None, max_length=None,null=True)
     selfie_proof =models.ImageField(("ID Photo"), upload_to='selfies_proof', height_field=None, width_field=None, max_length=None,null=True)
     address_proof = models.CharField(("address proof"), max_length=50,choices=Address_proof)

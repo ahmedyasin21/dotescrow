@@ -36,7 +36,7 @@ class KycModelForm(forms.ModelForm):
     
     class Meta:
         model = KycModel
-        fields = ("first_name","last_name","age","gender","nationality","country","phone_number","address_proof","address_proof_img","verification_field","wallet_balance","city","state","zip_code","street_address","pass_port_copy","selfie_proof","wallet_address","card")
+        fields = ("first_name","last_name","age","gender","nationality","country","phone_number","address_proof","address_proof_img","wallet_balance","city","state","zip_code","street_address","pass_port_copy","selfie_proof","wallet_address","card")
         Gender = (
             ('male','Male'),
             ('female','Female'),
@@ -55,11 +55,6 @@ class KycModelForm(forms.ModelForm):
             ('fitoken','FIToken'),
             )
 
-
-        Varification = (
-            ('1','ID Card'),
-            ('2','Passport'),
-            )
             
         widgets ={
             'first_name' : forms.TextInput(attrs={'class':'form-control'}),
@@ -73,7 +68,7 @@ class KycModelForm(forms.ModelForm):
             'zip_code':forms.TextInput(attrs={'class':'form-control'}),
             "user_address":forms.TextInput(attrs={'class':'form-control'}),
             'card' : forms.Select(choices=Cards,attrs={'class': 'form-control'}),
-            'verification_field' : forms.Select(choices=Varification,attrs={'class': 'form-control'}),
+            # 'verification_field' : forms.Select(choices=Varification,attrs={'class': 'form-control'}),
             # 'wallet_type' : forms.Select(choices=Wallets,attrs={'class': 'form-control'}),
             "wallet_address":forms.TextInput(attrs={'class':'form-control','id':'walletaddressinput'}),
         }
