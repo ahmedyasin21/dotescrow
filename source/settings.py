@@ -60,14 +60,28 @@ AUTHENTICATION_BACKENDS = ['accounts.backends.EmailBackend']
 # EMAIL_USE_TLS = True  
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'mail.dotescrow.net'
+# EMAIL_HOST_USER = 'no-reply@dotescrow.net'
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# EMAIL_HOST_PASSWORD = '!Dot3scrow'
+# EMAIL_PORT = 465
+# EMAIL_USE_SSL = True
+# # EMAIL_USE_TLS = False
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.dotescrow.net'
-EMAIL_HOST_USER = 'no-reply@dotescrow.net'
+
+MAILER_EMAIL_BACKEND = EMAIL_BACKEND  
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'XXXXXX@gmail.com' 
+EMAIL_HOST_PASSWORD = 'XXXXXX'  
+EMAIL_PORT = 587 
+EMAIL_USE_TLS = True  
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = '!Dot3scrow'
-EMAIL_PORT = 465
-EMAIL_USE_SSL = True
-# EMAIL_USE_TLS = False
+
 
 
 
@@ -106,24 +120,24 @@ WSGI_APPLICATION = 'source.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dotescrow',
-        'USER': 'dotescrow_main',
-        'PASSWORD': 'ppoopp00',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR /'db.sqlite3' ,
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'dotescrow',
+#         'USER': 'dotescrow_main',
+#         'PASSWORD': 'ppoopp00',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 
 
 # Password validation
